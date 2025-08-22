@@ -1580,9 +1580,9 @@ GameObject:
   - component: {fileID: 2545105898529321716}
   - component: {fileID: 145593345945161679}
   - component: {fileID: 4727505706400719729}
-  - component: {fileID: 6272364902102958396}
+  - component: {fileID: 2572519054593095207}
   m_Layer: 5
-  m_Name: Btn_MyResume
+  m_Name: Btn_Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1689,20 +1689,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 145593345945161679}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayAudio, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &6272364902102958396
+      m_Calls: []
+--- !u!114 &2572519054593095207
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1711,10 +1699,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 6169082762810209607}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3081670bfed562541abd4b9d5ae37998, type: 3}
+  m_Script: {fileID: 11500000, guid: f3c1517a96111b049a76c7e2bf74c370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _link: https://drive.google.com/file/d/154OUS3_0I3yvSluLL_zpN5hqcwl-BkdO/view?usp=sharing
+  disableInteraction: 0
+  visibleOnAwake: 1
+  controlOpacity: 1
+  fadeTime: 0.3
+  ignoreTimeScale: 1
+  focusObject: {fileID: 0}
+  focusMode: 0
+  onShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onHide:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6232541477572222699
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,7 +2399,7 @@ GameObject:
   - component: {fileID: 7612182000255879962}
   - component: {fileID: 6125347087258142136}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2465,7 +2465,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: my resume
+  m_Text: Exit
 --- !u!1 &8880298483020187500
 GameObject:
   m_ObjectHideFlags: 0
