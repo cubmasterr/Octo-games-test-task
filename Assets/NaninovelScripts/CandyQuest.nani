@@ -1,0 +1,113 @@
+@bgm BackgroudMusic
+Введите своё имя
+@input PlayerName 
+@stop
+
+#House
+@showUI PauseButton
+@hideAll
+@back House
+@if "CandyQuestStage == 3"
+{PlayerName} : Мне больше нечего здесь делать...
+@stop
+@endif
+
+@char Aki
+@if "CandyQuestStage == 2"
+@goto .FinalDialog
+@endif
+
+@if "currentQuest !=""" 
+    Aki.Normal: Эй! Не забудь купить мне конфету! 
+	@stop
+@endif
+
+@hideUI MapButton
+Aki.Normal: Эй, братик {PlayerName}! Купишь мне конфетку? Пожалуйста-пожалуйста! Без неё я не смогу учить уроки!
+{PlayerName} : Я бы с радостью, но у меня нет денег.
+Aki.NormalClosedEyes: Так спроси у Мисы. Она, скорее всего, в парке гуляет. 
+{PlayerName} : Хорошо.
+@startCurentQuest questName:CandyQuest
+@setLocation labels:"House_true,Park_true,Market_false"
+@stop
+
+#Park
+@hideAll
+@back Park
+@if "CandyQuestStage == 3"
+{PlayerName} : Мне больше нечего здесь делать...
+@stop
+@endif
+@if "CandyQuestStage == 2"
+	{PlayerName} : Хм, странно… Мисы здесь нет. Наверное, встречу её дома.
+	@setLocation labels:"House_true,Park_true,Market_false"
+	@stop
+@endif
+@char Misa
+@if "CandyQuestStage == 1"
+    Misa.Normal: Купи конфет на рынке и поговорим позже.
+	@stop
+@endif
+@hideUI MapButton
+{PlayerName} : Привет, Миса. Можно попросить у тебя немного денег?
+Misa.Normal: {PlayerName}, опять Аки просит сладости? Ты такой мягкий. Но знаешь что… мне скучно. Сыграй со мной в парные карточки, и я дам тебе немного денег на сладости. 
+{PlayerName} : Хорошо.
+@memoryCardsMiniGame
+Misa.Happy: Было весело! Вот, держи немного денег. Купи и мне тоже сладостей.
+@setQuestState questName:CandyQuest questState:1
+@setLocation labels:"House_true,Park_true,Market_true"
+@stop
+
+#Market
+@hideAll
+@back Market
+@if "CandyQuestStage == 3"
+{PlayerName} : Мне больше нечего здесь делать...
+@stop
+@endif
+@hideUI MapButton
+
+{PlayerName} : Хм, я на рынке. Где-то тут должны быть конфеты.
+@choice handler:ButtonArea button:Items/Candy pos:400,-100 goto:.CandyPicked
+@stop
+
+#CandyPicked
+@setQuestState questName:CandyQuest questState:2
+{PlayerName} : Денег хватает, но осталась только одна конфета. Похоже, придётся самому решать, кому её отдать.
+@setLocation labels:"House_true,Park_true,Market_false"
+@stop
+
+#FinalDialog
+@hideUI MapButton
+Aki.NormalClosedEyes: Братик {PlayerName}, ты принёс конфеты? Я очень хочу сладкого!
+@char Misa
+Misa.Normal: Да, я тоже не отказалась бы от сладкого...
+{PlayerName} : Хм, нас двое, а конфета всего одна... Кому же её отдать?
+
+@choice "Отдать конфету Аки" goto:.GiveAki
+@choice "Отдать конфету Мисе" goto:.GiveMisa
+@choice "Забрать конфету себе" goto:.TakeKandy
+@stop
+
+#GiveAki
+Aki.HappyClosedEyes: Ура! Я знала, что ты самый лучший!
+Misa.Sad: Эх… всегда её балуешь.
+@goto .Exit
+
+#GiveMisa
+Misa.Happy: Наконец-то правильный выбор. Спасибо!
+Aki.Sad: Эээ?! Несправедливо!
+@goto .Exit
+
+#TakeKandy
+{PlayerName} : Я столько старался… пожалуй, оставлю её себе.
+Aki.Sad: ЧТО?!
+Misa.Sad: Эгоист…
+@goto .Exit
+
+#Exit
+Narrator: Конфетный квест завершён!
+@setQuestState questName:CandyQuest questState:3
+@completeCurrentQuest
+@setLocation labels:"House_true,Park_true,Market_true"
+@stop
